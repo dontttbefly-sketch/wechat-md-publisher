@@ -65,6 +65,9 @@ title: "文章标题"
 digest: "公众号摘要，建议 60-120 字"
 author: "空杯"
 cover: "../assets/default-cover.png"
+cover_short_title: "可选方封面短标题"
+guizang_kicker: "可选顶部分类"
+guizang_accent: "ikb"
 source_url: ""
 show_cover_pic: false
 ---
@@ -78,6 +81,9 @@ show_cover_pic: false
 | `digest` | 必填 | 公众号摘要 |
 | `author` | 可选 | 不填时使用 `.env` 的 `WECHAT_AUTHOR` |
 | `cover` | 可选 | 不填时使用 `.env` 的默认封面 |
+| `cover_short_title` | 可选 | Guizang `1:1` 方封面短标题 |
+| `guizang_kicker` | 可选 | Guizang 主封面顶部分类文字 |
+| `guizang_accent` | 可选 | Guizang Swiss 强调色：`ikb`、`lemon-yellow`、`lemon-green`、`safety-orange` |
 | `source_url` | 可选 | 原文链接 |
 | `show_cover_pic` | 可选 | 是否在正文顶部显示封面 |
 
@@ -173,6 +179,35 @@ Guizang 封面支持这些可选 frontmatter：
 | `cover_short_title` | 覆盖 `1:1` 方封面的短标题 |
 | `guizang_kicker` | 覆盖主封面顶部分类文字 |
 | `guizang_accent` | Swiss 强调色：`ikb`、`lemon-yellow`、`lemon-green`、`safety-orange` |
+
+### 智能体参与版：Skill 生成图片
+
+如果已经在 Codex 中安装 `wechat-guizang-draft-agent`，可以让智能体参与整套图文草稿工作流：
+
+```text
+Use $wechat-guizang-draft-agent to prepare a Guizang cover preview and confirmed WeChat draft for articles/sample.md.
+```
+
+这个 Skill 不把大模型调用写进终端命令里，而是在 Codex 会话中编排：
+
+```text
+智能体阅读 Markdown
+  -> 判断标题、摘要、封面短标题和 Guizang 风格字段
+  -> 调用 npm run guizang-cover 生成封面图片
+  -> 展示 21:9 + 1:1 配对预览
+  -> 运行 dry-run 检查
+  -> 等用户确认后再创建微信草稿
+```
+
+Skill 生成和检查的图片仍然落在本地输出目录：
+
+```text
+.guizang/<article-slug>/output/wechat-21x9-cover.png
+.guizang/<article-slug>/output/wechat-1x1-cover.png
+.guizang/<article-slug>/output/wechat-cover-pair-preview.png
+```
+
+确认门槛：智能体必须先展示封面预览，并在你明确回复“确认创建草稿”之后，才可以运行非 dry-run 的 `npm run guizang-draft -- <article>`。它不会自动发布或群发公众号内容。
 
 ## 图片规则
 
