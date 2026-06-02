@@ -5,6 +5,7 @@
 .cache/
 .state/
 .preview/
+.guizang/
 node_modules/
 rules.json
 *.log

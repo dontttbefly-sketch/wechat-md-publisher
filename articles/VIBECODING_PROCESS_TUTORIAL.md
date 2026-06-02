@@ -3,6 +3,9 @@ title: "从调研到落地：一次飞书自动分发项目的 Vibe Coding 全�
 digest: "这是一篇 Vibe Coding 实战复盘，讲清楚如何从飞书自动分发需求出发，边调研、边试错，最终落地成可运行工具。"
 author: "空杯"
 cover: "../assets/default-cover.png"
+cover_short_title: "飞书自动分发"
+guizang_kicker: "Vibe Coding · Feishu Workflow"
+guizang_accent: "ikb"
 source_url: ""
 show_cover_pic: false
 ---

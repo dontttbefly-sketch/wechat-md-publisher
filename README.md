@@ -133,6 +133,47 @@ npm run draft -- articles/sample.md
 
 然后你到微信公众号后台草稿箱人工检查并发布。
 
+### 生成 Guizang 风格封面
+
+```bash
+npm run guizang-cover -- articles/sample.md
+```
+
+这个命令会读取同一篇 Markdown 的 `title`、`digest` 和正文里的 H2 标题，生成公众号封面图：
+
+```text
+.guizang/sample/index.html
+.guizang/sample/output/wechat-21x9-cover.png
+.guizang/sample/output/wechat-1x1-cover.png
+.guizang/sample/output/wechat-cover-pair-preview.png
+```
+
+默认使用 Guizang Swiss 风格。没有截图或照片也可以生成，首版会用纯版式系统图完成封面。
+
+### 一键生成封面并创建草稿
+
+先 dry-run 检查生成结果，不请求微信接口：
+
+```bash
+npm run guizang-draft -- articles/sample.md --dry-run
+```
+
+确认封面没问题后创建微信公众号草稿：
+
+```bash
+npm run guizang-draft -- articles/sample.md
+```
+
+这个命令会先生成 `21:9` 主封面，再把它作为公众号草稿封面上传；正文图片仍沿用原有 Markdown 图片上传流程。
+
+Guizang 封面支持这些可选 frontmatter：
+
+| 字段 | 说明 |
+|---|---|
+| `cover_short_title` | 覆盖 `1:1` 方封面的短标题 |
+| `guizang_kicker` | 覆盖主封面顶部分类文字 |
+| `guizang_accent` | Swiss 强调色：`ikb`、`lemon-yellow`、`lemon-green`、`safety-orange` |
+
 ## 图片规则
 
 正文图片使用普通 Markdown：

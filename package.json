@@ -7,7 +7,13 @@
     "check": "node src/cli.js check",
     "preview": "node src/cli.js preview",
     "draft": "node src/cli.js draft",
+    "guizang-cover": "node src/cli.js guizang-cover",
+    "guizang-draft": "node src/cli.js guizang-draft",
+    "test": "node --test",
     "generate-cover": "node scripts/generate-default-cover.js"
+  },
+  "dependencies": {
+    "playwright": "^1.60.0"
   },
   "engines": {
     "node": ">=20"

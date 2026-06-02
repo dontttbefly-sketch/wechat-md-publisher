@@ -31,15 +31,19 @@ export function loadArticle(inputPath) {
       author: data.author || defaultAuthor,
       cover: coverValue,
       coverPath,
+      coverShortTitle: data.cover_short_title || '',
+      guizangKicker: data.guizang_kicker || '',
+      guizangAccent: data.guizang_accent || '',
       sourceUrl: data.source_url || '',
       showCoverPic: data.show_cover_pic === true || data.show_cover_pic === 'true',
     },
   };
 }
 
-export function validateArticle(article) {
+export function validateArticle(article, options = {}) {
   const errors = [];
   const warnings = [];
+  const requireCover = options.requireCover !== false;
 
   if (!article.meta.title) errors.push('缺少 frontmatter 字段：title');
   if (!article.meta.digest) errors.push('缺少 frontmatter 字段：digest');
@@ -48,7 +52,7 @@ export function validateArticle(article) {
     warnings.push(`digest 当前 ${article.meta.digest.length} 字，建议控制在 60-120 字。`);
   }
 
-  if (!article.meta.coverPath || !fs.existsSync(article.meta.coverPath)) {
+  if (requireCover && (!article.meta.coverPath || !fs.existsSync(article.meta.coverPath))) {
     errors.push(`封面图不存在：${article.meta.coverPath || article.meta.cover}`);
   }
 
